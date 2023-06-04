@@ -9,7 +9,7 @@ function App() {
   useEffect(() => {
     const interval = setInterval(() => {
       setProgress(audioRef.current?.currentTime ?? 0);
-      if (audioRef.current) setCurrentTime(audioRef.current?.currentTime);
+      if (audioRef.current) setCurrentTime(audioRef.current.currentTime);
     }, 50);
     return () => clearInterval(interval);
   }, [audioRef.current?.currentTime]);
@@ -21,6 +21,10 @@ function App() {
           <audio ref={audioRef}>
             <source
               src="../public/01. Starboy (Feat. Daft Punk).mp3"
+              type="audio/mpeg"
+            ></source>
+            <source
+              src="../public/02. Party Monster.mp3"
               type="audio/mpeg"
             ></source>
             Your browser does not support the audio element.
