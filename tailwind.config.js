@@ -10,7 +10,10 @@ export default {
     colors: {
       ...tailwindColors,
       blackA: colors.blackA,
-      violet: colors.violet,
+      violet: {
+        violet1: colors.violet,
+        violet2: tailwindColors.violet,
+      },
       whiteA: colors.whiteA,
     },
   },

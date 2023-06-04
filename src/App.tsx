@@ -63,7 +63,7 @@ function App() {
                 <Slider.Range className="absolute h-full rounded-full bg-whiteA-whiteA12" />
               </Slider.Track>
               <Slider.Thumb
-                className="block h-[20px] w-[20px] rounded-[20px] bg-[#fff] shadow-[0_2px_10px_0_rgba(0,0,0,0.141)] hover:cursor-pointer hover:bg-violet-violet3 focus:shadow-[0_0_0_5px_rgba(0,0,0,0.22)] focus:outline-none"
+                className="hover:bg-violet-violet3 block h-[20px] w-[20px] rounded-[20px] bg-[#fff] shadow-[0_2px_10px_0_rgba(0,0,0,0.141)] hover:cursor-pointer focus:shadow-[0_0_0_5px_rgba(0,0,0,0.22)] focus:outline-none"
                 aria-label="Volume"
               />
             </Slider.Root>
