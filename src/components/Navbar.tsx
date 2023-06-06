@@ -5,7 +5,9 @@ export default function Navbar() {
   return (
     <>
       <div className="flex h-[90vh] w-16 flex-col bg-black p-3 md:w-32 lg:w-48">
-        <div className="h-[10%]"></div>
+        <div className="flex h-[10%] items-center justify-center">
+          <p>Music Player</p>
+        </div>
         <div className="block md:hidden">
           <Dialog.Root>
             <Dialog.Trigger asChild>

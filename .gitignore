@@ -24,4 +24,4 @@ dist-ssr
 *.sw?
 
 #Songs
-public/*.mp3
+public/music
