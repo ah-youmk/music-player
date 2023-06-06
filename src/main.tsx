@@ -4,7 +4,7 @@ import App from './App.tsx';
 import './index.css';
 
 document.body.className =
-  'bg-gradient-to-r from-violet-violet2-500 to-fuchsia-500';
+  'dark:text-white dark:bg-gradient-to-t dark:from-[#111] dark:to-[#1F1F1F]';
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
