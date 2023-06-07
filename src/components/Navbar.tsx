@@ -1,12 +1,18 @@
+import { useState, MouseEvent } from 'react';
 import * as Dialog from '@radix-ui/react-dialog';
 import { Cross2Icon } from '@radix-ui/react-icons';
 import HomeIcon from '@mui/icons-material/Home';
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
+import PageviewIcon from '@mui/icons-material/Pageview';
 import LibraryBooksOutlinedIcon from '@mui/icons-material/LibraryBooksOutlined';
+import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
 import ControlPointOutlinedIcon from '@mui/icons-material/ControlPointOutlined';
+import AddCircleOutlinedIcon from '@mui/icons-material/AddCircleOutlined';
+import { ContentType } from '../types/GlobalTypes';
+import { NavbarProps } from '../types/PropsType';
 
-export default function Navbar() {
+export default function Navbar({ active, setActive }: NavbarProps) {
   return (
     <>
       <nav className="flex h-[90vh] w-16 flex-col gap-3 bg-black p-3 md:w-40 lg:w-64">
@@ -16,35 +22,87 @@ export default function Navbar() {
           </p>
         </div>
         <ul className="flex h-[90%] w-full flex-col items-center gap-4 text-[#b3b3b3]">
-          <li className="flex w-[95%] gap-3 hover:cursor-pointer">
+          <li
+            className={`flex w-[95%] gap-3 transition-all duration-300 hover:cursor-pointer ${
+              active === 'home' ? 'text-white' : 'hover:text-white'
+            }`}
+            onClick={() => setActive('home')}
+          >
             <div className="flex flex-[1] items-start">
-              <HomeOutlinedIcon fontSize="large" />
+              {active === 'home' ? (
+                <HomeIcon fontSize="large" />
+              ) : (
+                <HomeOutlinedIcon fontSize="large" />
+              )}
             </div>
-            <a href="/" className="flex flex-[4] items-center">
+            <a
+              href="/"
+              className="flex flex-[4] items-center"
+              onClick={(e: MouseEvent) => e.preventDefault()}
+            >
               <span className="font-semibold">Home</span>
             </a>
           </li>
-          <li className="flex w-[95%] gap-3 hover:cursor-pointer">
+          <li
+            className={`flex w-[95%] gap-3 transition-all duration-300 hover:cursor-pointer ${
+              active === 'search' ? 'text-white' : 'hover:text-white'
+            }`}
+            onClick={() => setActive('search')}
+          >
             <div className="flex flex-[1] items-start">
-              <SearchOutlinedIcon fontSize="large" />
+              {active === 'search' ? (
+                <PageviewIcon fontSize="large" />
+              ) : (
+                <SearchOutlinedIcon fontSize="large" />
+              )}
             </div>
-            <a href="/" className="flex flex-[4] items-center">
+            <a
+              href="/"
+              className="flex flex-[4] items-center"
+              onClick={(e: MouseEvent) => e.preventDefault()}
+            >
               <span className="font-semibold">Search</span>
             </a>
           </li>
-          <li className="flex w-[95%] gap-3 hover:cursor-pointer">
+          <li
+            className={`flex w-[95%] gap-3 transition-all duration-300 hover:cursor-pointer ${
+              active === 'library' ? 'text-white' : 'hover:text-white'
+            }`}
+            onClick={() => setActive('library')}
+          >
             <div className="flex-[1]">
-              <LibraryBooksOutlinedIcon fontSize="large" />
+              {active === 'library' ? (
+                <LibraryBooksIcon fontSize="large" />
+              ) : (
+                <LibraryBooksOutlinedIcon fontSize="large" />
+              )}
             </div>
-            <a href="/" className="flex flex-[4] items-center">
+            <a
+              href="/"
+              className="flex flex-[4] items-center"
+              onClick={(e: MouseEvent) => e.preventDefault()}
+            >
               <span className="font-semibold">Library</span>
             </a>
           </li>
-          <li className="flex w-[95%] gap-3 hover:cursor-pointer">
+          <li
+            className={`flex w-[95%] gap-3 transition-all duration-300 hover:cursor-pointer ${
+              active === 'playlist' ? 'text-white' : 'hover:text-white'
+            }`}
+            onClick={() => setActive('playlist')}
+          >
             <div className="flex-[1]">
-              <ControlPointOutlinedIcon fontSize="large" />
+              {active === 'playlist' ? (
+                <AddCircleOutlinedIcon fontSize="large" />
+              ) : (
+                <ControlPointOutlinedIcon fontSize="large" />
+              )}
             </div>
-            <a href="/" className="flex flex-[4] items-center">
+            <a
+              href="/"
+              className="flex flex-[4] items-center"
+              onClick={(e: MouseEvent) => e.preventDefault()}
+            >
               <span className="font-semibold">Create Playlist</span>
             </a>
           </li>

@@ -1,7 +1,5 @@
-type ContetnProps = {
-  contentType: string;
-};
+import { ContetnProps } from '../types/PropsType';
 
-export default function Content({ contentType }: ContetnProps) {
-  return <>Content</>;
+export default function Content({ content }: ContetnProps) {
+  return <>{content}</>;
 }
