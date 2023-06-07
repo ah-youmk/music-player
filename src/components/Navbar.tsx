@@ -9,104 +9,115 @@ import LibraryBooksOutlinedIcon from '@mui/icons-material/LibraryBooksOutlined';
 import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
 import ControlPointOutlinedIcon from '@mui/icons-material/ControlPointOutlined';
 import AddCircleOutlinedIcon from '@mui/icons-material/AddCircleOutlined';
-import { ContentType } from '../types/GlobalTypes';
+import { NavType } from '../types/GlobalTypes';
 import { NavbarProps } from '../types/PropsType';
 
 export default function Navbar({ active, setActive }: NavbarProps) {
+  const [navContent, setNavContent] = useState<NavType>('library');
+
   return (
     <>
-      <nav className="flex h-[90vh] w-16 flex-col gap-3 bg-black p-3 md:w-40 lg:w-64">
-        <div className="flex h-[10%] w-full items-center justify-center">
+      <nav className="flex h-[88vh] w-16 flex-col gap-3 rounded-lg bg-black p-3 md:w-72 lg:w-96">
+        <div className="flex h-[10%] w-full items-center justify-center p-3">
           <p className="w-[95%] text-sm font-bold md:text-base lg:text-xl">
             Music Player™
           </p>
         </div>
-        <ul className="flex h-[90%] w-full flex-col items-center gap-4 text-[#b3b3b3]">
-          <li
-            className={`flex w-[95%] gap-3 transition-all duration-300 hover:cursor-pointer ${
-              active === 'home' ? 'text-white' : 'hover:text-white'
-            }`}
-            onClick={() => setActive('home')}
-          >
-            <div className="flex flex-[1] items-start">
-              {active === 'home' ? (
-                <HomeIcon fontSize="large" />
-              ) : (
-                <HomeOutlinedIcon fontSize="large" />
-              )}
-            </div>
-            <a
-              href="/"
-              className="flex flex-[4] items-center"
-              onClick={(e: MouseEvent) => e.preventDefault()}
+        <div className="flex h-[90%] w-full flex-col gap-3 rounded-lg">
+          <ul className="flex flex-[1] flex-col items-center gap-4 bg-[#121212] p-3 text-[#b3b3b3]">
+            <li
+              className={`flex w-[95%] flex-[1] gap-3 transition-all duration-300 hover:cursor-pointer ${
+                active === 'home' ? 'text-white' : 'hover:text-white'
+              }`}
+              onClick={() => setActive('home')}
             >
-              <span className="font-semibold">Home</span>
-            </a>
-          </li>
-          <li
-            className={`flex w-[95%] gap-3 transition-all duration-300 hover:cursor-pointer ${
-              active === 'search' ? 'text-white' : 'hover:text-white'
-            }`}
-            onClick={() => setActive('search')}
-          >
-            <div className="flex flex-[1] items-start">
-              {active === 'search' ? (
-                <PageviewIcon fontSize="large" />
-              ) : (
-                <SearchOutlinedIcon fontSize="large" />
-              )}
-            </div>
-            <a
-              href="/"
-              className="flex flex-[4] items-center"
-              onClick={(e: MouseEvent) => e.preventDefault()}
+              <div className="flex flex-[1] items-start">
+                {active === 'home' ? (
+                  <HomeIcon fontSize="large" />
+                ) : (
+                  <HomeOutlinedIcon fontSize="large" />
+                )}
+              </div>
+              <a
+                href="/"
+                className="flex flex-[4] items-center"
+                onClick={(e: MouseEvent) => e.preventDefault()}
+              >
+                <span className="font-semibold">Home</span>
+              </a>
+            </li>
+            <li
+              className={`flex w-[95%] flex-[1] gap-3 transition-all duration-300 hover:cursor-pointer ${
+                active === 'search' ? 'text-white' : 'hover:text-white'
+              }`}
+              onClick={() => setActive('search')}
             >
-              <span className="font-semibold">Search</span>
-            </a>
-          </li>
-          <li
-            className={`flex w-[95%] gap-3 transition-all duration-300 hover:cursor-pointer ${
-              active === 'library' ? 'text-white' : 'hover:text-white'
-            }`}
-            onClick={() => setActive('library')}
-          >
-            <div className="flex-[1]">
-              {active === 'library' ? (
-                <LibraryBooksIcon fontSize="large" />
-              ) : (
-                <LibraryBooksOutlinedIcon fontSize="large" />
-              )}
-            </div>
-            <a
-              href="/"
-              className="flex flex-[4] items-center"
-              onClick={(e: MouseEvent) => e.preventDefault()}
-            >
-              <span className="font-semibold">Library</span>
-            </a>
-          </li>
-          <li
-            className={`flex w-[95%] gap-3 transition-all duration-300 hover:cursor-pointer ${
-              active === 'playlist' ? 'text-white' : 'hover:text-white'
-            }`}
-            onClick={() => setActive('playlist')}
-          >
-            <div className="flex-[1]">
-              {active === 'playlist' ? (
-                <AddCircleOutlinedIcon fontSize="large" />
-              ) : (
-                <ControlPointOutlinedIcon fontSize="large" />
-              )}
-            </div>
-            <a
-              href="/"
-              className="flex flex-[4] items-center"
-              onClick={(e: MouseEvent) => e.preventDefault()}
-            >
-              <span className="font-semibold">Create Playlist</span>
-            </a>
-          </li>
-        </ul>
+              <div className="flex flex-[1] items-start">
+                {active === 'search' ? (
+                  <PageviewIcon fontSize="large" />
+                ) : (
+                  <SearchOutlinedIcon fontSize="large" />
+                )}
+              </div>
+              <a
+                href="/"
+                className="flex flex-[4] items-center"
+                onClick={(e: MouseEvent) => e.preventDefault()}
+              >
+                <span className="font-semibold">Search</span>
+              </a>
+            </li>
+          </ul>
+
+          <div className="flex w-full flex-[5] flex-col  bg-[#121212]">
+            <ul className="flex w-full flex-[1] flex-col items-center gap-4 p-3 text-[#b3b3b3]">
+              <li
+                className={`flex w-[95%] gap-3 transition-all duration-300 hover:cursor-pointer ${
+                  navContent === 'library' ? 'text-white' : 'hover:text-white'
+                }`}
+                onClick={() => setNavContent('library')}
+              >
+                <div className="flex-[1]">
+                  {navContent === 'library' ? (
+                    <LibraryBooksIcon fontSize="large" />
+                  ) : (
+                    <LibraryBooksOutlinedIcon fontSize="large" />
+                  )}
+                </div>
+                <a
+                  href="/"
+                  className="flex flex-[4] items-center"
+                  onClick={(e: MouseEvent) => e.preventDefault()}
+                >
+                  <span className="font-semibold">Library</span>
+                </a>
+              </li>
+              <li
+                className={`flex w-[95%] gap-3 transition-all duration-300 hover:cursor-pointer ${
+                  navContent === 'playlist' ? 'text-white' : 'hover:text-white'
+                }`}
+                onClick={() => setNavContent('playlist')}
+              >
+                <div className="flex-[1]">
+                  {navContent === 'playlist' ? (
+                    <AddCircleOutlinedIcon fontSize="large" />
+                  ) : (
+                    <ControlPointOutlinedIcon fontSize="large" />
+                  )}
+                </div>
+                <a
+                  href="/"
+                  className="flex flex-[4] items-center"
+                  onClick={(e: MouseEvent) => e.preventDefault()}
+                >
+                  <span className="font-semibold">Playlist</span>
+                </a>
+              </li>
+            </ul>
+
+            <div className="flex w-full flex-[5] flex-col px-3 pb-3"></div>
+          </div>
+        </div>
         <div className="block md:hidden">
           <Dialog.Root>
             <Dialog.Trigger asChild>
