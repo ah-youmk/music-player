@@ -1,9 +1,12 @@
 import { SongProps } from '~shared/types/PropsType';
 
-export default function Song({ song }: SongProps) {
+export default function Song({ song, setCurrentSong }: SongProps) {
   return (
     <>
-      <div className="flex h-[37vh] flex-col rounded-md bg-[#181818] px-4 pb-6 pt-4 transition-colors duration-150 hover:cursor-pointer hover:bg-[#282828]">
+      <div
+        onClick={() => setCurrentSong(song)}
+        className="flex h-[37vh] flex-col rounded-md bg-[#181818] px-4 pb-6 pt-4 transition-colors duration-150 hover:cursor-pointer hover:bg-[#282828]"
+      >
         <div className="flex-[2] shadow-md">
           <img
             className="rounded"

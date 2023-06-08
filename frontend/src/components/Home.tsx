@@ -1,9 +1,11 @@
 import Song from './Song';
 import { Song as SongType } from '../types/GlobalTypes';
 import { useEffect, useState } from 'react';
+import { HomeProps } from '~shared/types/PropsType';
 
-export default function Home() {
+export default function Home({ setCurrentSong }: HomeProps) {
   const [songs, setSongs] = useState<SongType[]>([]);
+  const [active, setActive] = useState<SongType | undefined>(undefined);
 
   const getSongs = () => {
     fetch('http://localhost:5000/songs')
@@ -31,7 +33,7 @@ export default function Home() {
         </div>
         <div className="grid h-full w-full grid-cols-5 gap-4 overflow-auto bg-[#121212] px-6 pb-6 pt-3 transition-all duration-300">
           {songs.map((song: SongType, index: number) => (
-            <Song key={index} song={song} />
+            <Song key={index} song={song} setCurrentSong={setCurrentSong} />
           ))}
         </div>
       </div>

@@ -1,7 +1,14 @@
-import React, { MouseEvent, useEffect, useRef, useState } from 'react';
+import React, {
+  MouseEvent,
+  useEffect,
+  useRef,
+  useState,
+  FormEvent,
+} from 'react';
 import * as Slider from '@radix-ui/react-slider';
+import { MusicBarProps } from '~shared/types/PropsType';
 
-function MusicBar() {
+function MusicBar({ currentSong }: MusicBarProps) {
   const audioRef = useRef<HTMLAudioElement>(null);
   const [progress, setProgress] = useState<number>(0);
   const [currentTime, setCurrentTime] = useState<number>(0);
@@ -23,15 +30,8 @@ function MusicBar() {
             onEnded={() => {
               return;
             }}
+            src={`music/${currentSong?.fileName}`}
           >
-            <source
-              src="/music/01. Starboy (Feat. Daft Punk).mp3"
-              type="audio/mpeg"
-            ></source>
-            <source
-              src="/music/02. Party Monster.mp3"
-              type="audio/mpeg"
-            ></source>
             Your browser does not support the audio element.
           </audio>
           <div className="flex-[1]">

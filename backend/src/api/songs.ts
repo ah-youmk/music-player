@@ -25,6 +25,7 @@ const getSongs = async (): Promise<Song[]> => {
         }\\public\\music\\covers\\${tags.title}.jpg`
       );
       songs.push({
+        fileName: path.parse(file).base,
         artist: tags.artist ?? 'ARTIST',
         album: tags.album ?? 'ALBUM',
         title: tags.title ?? 'TITLE',

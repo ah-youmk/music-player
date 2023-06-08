@@ -1,6 +1,7 @@
 import { LinkedList } from '../utils/LinkedList';
 
 export type Song = {
+  fileName: string;
   title: string;
   artist: string;
   album: string;
