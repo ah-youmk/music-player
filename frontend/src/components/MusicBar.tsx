@@ -25,7 +25,7 @@ function MusicBar() {
             }}
           >
             <source
-              src="public/music/01. Starboy (Feat. Daft Punk).mp3"
+              src="/music/01. Starboy (Feat. Daft Punk).mp3"
               type="audio/mpeg"
             ></source>
             <source
