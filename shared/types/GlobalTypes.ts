@@ -4,7 +4,6 @@ export type Song = {
   title: string;
   artist: string;
   album: string;
-  image: string;
 };
 export type ContentType = 'home' | 'search' | Playlist;
 export type NavType = 'library' | 'playlist';

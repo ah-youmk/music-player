@@ -1,6 +1,7 @@
 import express, { Express } from 'express';
 import { fileURLToPath } from 'url';
 import path, { dirname } from 'path';
+import getSongs from '../api/songs.ts';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -10,6 +11,10 @@ const publicPath = path.join(path.resolve(), 'public');
 const app: Express = express();
 
 app.use('/', express.static(publicPath));
+
+app.get('/songs', async (_req, res) => {
+  return res.json(await getSongs());
+});
 
 app.get('/*', (_req, res) => {
   res.sendFile(`${path.parse(path.parse(__dirname).dir).dir}/src/index.html`);

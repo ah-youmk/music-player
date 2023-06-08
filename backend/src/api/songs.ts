@@ -28,7 +28,6 @@ const getSongs = async (): Promise<Song[]> => {
         artist: tags.artist ?? 'ARTIST',
         album: tags.album ?? 'ALBUM',
         title: tags.title ?? 'TITLE',
-        image: fileURLToPath(imagePath) ?? 'IMAGE',
       });
       fs.writeFileSync(imagePath, tags.image.imageBuffer);
     }

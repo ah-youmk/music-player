@@ -26,6 +26,6 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src", "../backend/src/server/songs.ts", "../shared/types"],
+  "include": ["src", "../backend/src/api/songs.ts", "../shared/types"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

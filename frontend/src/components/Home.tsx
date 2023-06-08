@@ -1,13 +1,14 @@
 import Song from './Song';
 import { Song as SongType } from '../types/GlobalTypes';
-import fetchSongs from '../../../backend/src/server/songs';
 import { useEffect, useState } from 'react';
 
 export default function Home() {
   const [songs, setSongs] = useState<SongType[]>([]);
 
   const getSongs = () => {
-    fetchSongs().then((result: SongType[]) => setSongs(result));
+    fetch('http://localhost:5000/songs')
+      .then((response: Response) => response.json())
+      .then((result: SongType[]) => setSongs(result));
   };
 
   useEffect(() => {
