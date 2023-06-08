@@ -18,9 +18,14 @@ function MusicBar() {
     <>
       <div className="flex h-[12vh] w-full items-center justify-center bg-[#1E1E1E]">
         <div className="flex h-1/2 w-1/2 flex-col items-center justify-evenly">
-          <audio ref={audioRef}>
+          <audio
+            ref={audioRef}
+            onEnded={() => {
+              return;
+            }}
+          >
             <source
-              src="/music/01. Starboy (Feat. Daft Punk).mp3"
+              src="public/music/01. Starboy (Feat. Daft Punk).mp3"
               type="audio/mpeg"
             ></source>
             <source

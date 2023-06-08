@@ -17,7 +17,7 @@ export default function Navbar({ active, setActive }: NavbarProps) {
 
   return (
     <>
-      <nav className="flex h-[88vh] w-16 flex-col gap-3 rounded-lg bg-black p-3 md:w-72 lg:w-96">
+      <nav className="flex h-[88vh] w-16 flex-col gap-3 rounded-lg bg-black p-3 md:w-72 lg:flex-[1]">
         <div className="flex h-[10%] w-full items-center justify-center p-3">
           <p className="w-[95%] text-sm font-bold md:text-base lg:text-xl">
             Music Player™
