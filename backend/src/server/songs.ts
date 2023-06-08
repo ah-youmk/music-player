@@ -1,5 +1,5 @@
 import NodeID3 from 'node-id3';
-import { Song } from '../types/GlobalTypes';
+import { Song } from '~shared/types/GlobalTypes.ts';
 import { glob } from 'glob';
 import fs from 'fs';
 import { fileURLToPath, pathToFileURL } from 'url';

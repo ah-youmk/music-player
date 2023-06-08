@@ -9,8 +9,8 @@ import LibraryBooksOutlinedIcon from '@mui/icons-material/LibraryBooksOutlined';
 import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
 import ControlPointOutlinedIcon from '@mui/icons-material/ControlPointOutlined';
 import AddCircleOutlinedIcon from '@mui/icons-material/AddCircleOutlined';
-import { NavType } from '../types/GlobalTypes';
-import { NavbarProps } from '../types/PropsType';
+import { NavType } from '~shared/types/GlobalTypes';
+import { NavbarProps } from '~shared/types/PropsType';
 
 export default function Navbar({ active, setActive }: NavbarProps) {
   const [navContent, setNavContent] = useState<NavType>('library');

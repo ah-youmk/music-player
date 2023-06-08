@@ -1,18 +1,18 @@
 import Song from './Song';
-// import { Song as SongType } from '../types/GlobalTypes';
-// import fetchSongs from '../utils/songs';
-// import { useEffect, useState } from 'react';
+import { Song as SongType } from '../types/GlobalTypes';
+import fetchSongs from '../../../backend/src/server/songs';
+import { useEffect, useState } from 'react';
 
 export default function Home() {
-  // const [songs, setSongs] = useState<SongType[]>([]);
+  const [songs, setSongs] = useState<SongType[]>([]);
 
-  // const getSongs = () => {
-  //   fetchSongs().then((result: SongType[]) => setSongs(result));
-  // };
+  const getSongs = () => {
+    fetchSongs().then((result: SongType[]) => setSongs(result));
+  };
 
-  // useEffect(() => {
-  //   getSongs();
-  // }, []);
+  useEffect(() => {
+    getSongs();
+  }, []);
 
   return (
     <>
@@ -29,9 +29,9 @@ export default function Home() {
           </div>
         </div>
         <div className="grid h-full w-full grid-cols-5 gap-4 overflow-auto p-3 transition-all duration-300">
-          {/* {songs.map((song: SongType, index: number) => (
+          {songs.map((song: SongType, index: number) => (
             <Song key={index} song={song} />
-          ))} */}
+          ))}
         </div>
       </div>
     </>

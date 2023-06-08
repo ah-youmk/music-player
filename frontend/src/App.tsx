@@ -1,7 +1,7 @@
 import React, { MouseEvent, useEffect, useRef, useState } from 'react';
 import Navbar from './components/Navbar';
 import Content from './components/Content';
-import { ContentType } from './types/GlobalTypes';
+import { ContentType } from '~shared/types/GlobalTypes';
 import MusicBar from './components/MusicBar';
 
 function App() {

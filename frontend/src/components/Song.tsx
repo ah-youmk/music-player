@@ -1,4 +1,4 @@
-import { SongProps } from '../types/PropsType';
+import { SongProps } from '~shared/types/PropsType';
 
 export default function Song({ song }: SongProps) {
   return (
