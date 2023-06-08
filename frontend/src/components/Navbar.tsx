@@ -11,8 +11,14 @@ import ControlPointOutlinedIcon from '@mui/icons-material/ControlPointOutlined';
 import AddCircleOutlinedIcon from '@mui/icons-material/AddCircleOutlined';
 import { NavType } from '~shared/types/GlobalTypes';
 import { NavbarProps } from '~shared/types/PropsType';
+import Playlist from './Playlist';
 
-export default function Navbar({ active, setActive }: NavbarProps) {
+export default function Navbar({
+  active,
+  setActive,
+  currentPlaylist,
+  setCurrentPlaylist,
+}: NavbarProps) {
   const [navContent, setNavContent] = useState<NavType>('library');
 
   return (
@@ -24,7 +30,7 @@ export default function Navbar({ active, setActive }: NavbarProps) {
           </p>
         </div>
         <div className="flex h-[90%] w-full flex-col gap-3 rounded-lg">
-          <ul className="flex flex-[1] flex-col items-center gap-4 bg-[#121212] p-3 text-[#b3b3b3]">
+          <ul className="flex h-1/4 flex-col items-center gap-4 bg-[#121212] p-3 text-[#b3b3b3]">
             <li
               className={`flex w-[95%] flex-[1] gap-3 transition-all duration-300 hover:cursor-pointer ${
                 active === 'home' ? 'text-white' : 'hover:text-white'
@@ -69,8 +75,8 @@ export default function Navbar({ active, setActive }: NavbarProps) {
             </li>
           </ul>
 
-          <div className="flex w-full flex-[5] flex-col  rounded-lg bg-[#121212]">
-            <ul className="flex w-full flex-[1] flex-col items-center gap-4 p-3 text-[#b3b3b3]">
+          <div className="flex h-3/4 w-full flex-col  rounded-lg bg-[#121212]">
+            <ul className="flex-1/6 flex w-full flex-col items-center gap-4 p-3 text-[#b3b3b3]">
               <li
                 className={`flex w-[95%] gap-3 transition-all duration-300 hover:cursor-pointer ${
                   navContent === 'library' ? 'text-white' : 'hover:text-white'
@@ -115,7 +121,9 @@ export default function Navbar({ active, setActive }: NavbarProps) {
               </li>
             </ul>
 
-            <div className="flex w-full flex-[5] flex-col px-3 pb-3"></div>
+            <div className="flex h-5/6 w-full flex-col overflow-auto px-3 pb-3">
+              <Playlist playlist={currentPlaylist} />
+            </div>
           </div>
         </div>
         <div className="block md:hidden">

@@ -9,6 +9,7 @@ export type ContetnProps = {
 };
 export type NavbarProps = {
   active: ContentType;
+  currentPlaylist: Playlist;
   setCurrentPlaylist: React.Dispatch<React.SetStateAction<Playlist>>;
   setActive: React.Dispatch<React.SetStateAction<ContentType>>;
 };
@@ -28,6 +29,8 @@ export type HomeProps = {
   songs: Map<string, Song>;
 };
 export type MusicBarProps = {
+  playlists: Playlist[];
+  setPlaylists: React.Dispatch<React.SetStateAction<Playlist[]>>;
   node: React.MutableRefObject<Node<Song> | null>;
   currentPlaylist: Playlist;
   currentSong: Song | undefined;

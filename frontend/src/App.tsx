@@ -20,6 +20,7 @@ function App() {
   });
   const [songs, setSongs] = useState<Map<string, Song>>(new Map());
   const node = useRef<Node<Song> | null>(null);
+  const [playlists, setPlaylists] = useState<Playlist[]>([]);
 
   const getSongs = () => {
     fetch('http://localhost:5000/songs')
@@ -73,6 +74,7 @@ function App() {
       <div className="flex h-screen w-full flex-col">
         <div className="flex h-[88vh] w-full">
           <Navbar
+            currentPlaylist={currentPlaylist}
             active={content}
             setActive={setContent}
             setCurrentPlaylist={setCurrentPlaylist}
@@ -85,6 +87,8 @@ function App() {
           />
         </div>
         <MusicBar
+          playlists={playlists}
+          setPlaylists={setPlaylists}
           node={node}
           currentSong={currentSong}
           currentPlaylist={currentPlaylist}

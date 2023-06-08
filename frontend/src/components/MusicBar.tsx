@@ -12,6 +12,8 @@ function MusicBar({
   currentSong,
   currentPlaylist,
   node,
+  playlists,
+  setPlaylists,
   setCurrentSong,
 }: MusicBarProps) {
   const audioRef = useRef<HTMLAudioElement>(null);
@@ -38,10 +40,12 @@ function MusicBar({
       <div className="flex h-[12vh] w-full items-center justify-center bg-[#000]">
         <div className="flex h-full flex-[1]">
           <div className="ml-8 flex h-full flex-[1] items-center">
-            <img
-              className="h-[75%] rounded object-contain"
-              src={`music/covers/${currentSong?.title}.jpg`}
-            />
+            {currentSong && (
+              <img
+                className="h-[75%] rounded object-contain"
+                src={`music/covers/${currentSong?.title}.jpg`}
+              />
+            )}
           </div>
           <div className="flex h-[90%] flex-[2] flex-col items-start justify-center gap-1">
             <p className="text-sm font-semibold">{currentSong?.title}</p>
