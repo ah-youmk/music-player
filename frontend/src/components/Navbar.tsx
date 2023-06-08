@@ -17,7 +17,7 @@ export default function Navbar({ active, setActive }: NavbarProps) {
 
   return (
     <>
-      <nav className="flex h-[88vh] w-16 flex-col gap-3 rounded-lg bg-black p-3 md:w-72 lg:flex-[1]">
+      <nav className="flex h-[88vh] w-16 flex-col gap-3 bg-black px-3 pt-3 md:w-72 lg:flex-[1]">
         <div className="flex h-[10%] w-full items-center justify-center p-3">
           <p className="w-[95%] text-sm font-bold md:text-base lg:text-xl">
             Music Player™
@@ -69,7 +69,7 @@ export default function Navbar({ active, setActive }: NavbarProps) {
             </li>
           </ul>
 
-          <div className="flex w-full flex-[5] flex-col  bg-[#121212]">
+          <div className="flex w-full flex-[5] flex-col  rounded-lg bg-[#121212]">
             <ul className="flex w-full flex-[1] flex-col items-center gap-4 p-3 text-[#b3b3b3]">
               <li
                 className={`flex w-[95%] gap-3 transition-all duration-300 hover:cursor-pointer ${

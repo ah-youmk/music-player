@@ -1,26 +1,10 @@
-import Song from './Song';
-import { Song as SongType } from '../types/GlobalTypes';
-import { useEffect, useState } from 'react';
 import { HomeProps } from '~shared/types/PropsType';
 
-export default function Home({ setCurrentSong }: HomeProps) {
-  const [songs, setSongs] = useState<SongType[]>([]);
-  const [active, setActive] = useState<SongType | undefined>(undefined);
-
-  const getSongs = () => {
-    fetch('http://localhost:5000/songs')
-      .then((response: Response) => response.json())
-      .then((result: SongType[]) => setSongs(result));
-  };
-
-  useEffect(() => {
-    getSongs();
-  }, []);
-
+export default function Home({ currentPlaylist, showSongs, songs }: HomeProps) {
   return (
     <>
-      <div className="flex h-full flex-[3] flex-col">
-        <div className="flex w-full flex-col gap-12 bg-gradient-to-t from-[#121212] to-[#222] px-6 pb-3 pt-6">
+      <div className="flex h-full flex-[3] flex-col rounded-lg">
+        <div className="flex w-full flex-col justify-center gap-6 bg-gradient-to-t from-[#121212] to-[#222] px-6 pb-3 pt-6">
           <p className="text-xl font-semibold">Add music to your library</p>
           <div className="flex w-full items-start justify-between">
             <span className="flex flex-[3] items-center text-base">
@@ -30,11 +14,14 @@ export default function Home({ setCurrentSong }: HomeProps) {
               Add Music
             </button>
           </div>
+          <div className="flex-[1] px-1 pb-2 text-4xl font-semibold">
+            <h1>{currentPlaylist.name}</h1>
+          </div>
         </div>
-        <div className="grid h-full w-full grid-cols-5 gap-4 overflow-auto bg-[#121212] px-6 pb-6 pt-3 transition-all duration-300">
-          {songs.map((song: SongType, index: number) => (
-            <Song key={index} song={song} setCurrentSong={setCurrentSong} />
-          ))}
+        <div className="flex w-full flex-col overflow-auto bg-[#121212] pb-3">
+          <div className="grid w-full flex-grow grid-cols-5 gap-4 px-6 transition-all duration-300">
+            {showSongs(songs)}
+          </div>
         </div>
       </div>
     </>

@@ -5,6 +5,7 @@ export type Song = {
   title: string;
   artist: string;
   album: string;
+  duration: number;
 };
 export type ContentType = 'home' | 'search' | Playlist;
 export type NavType = 'library' | 'playlist';
