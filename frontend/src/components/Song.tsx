@@ -3,15 +3,19 @@ import { SongProps } from '~shared/types/PropsType';
 export default function Song({ song }: SongProps) {
   return (
     <>
-      <div className="flex h-[35vh] flex-col px-3 pb-5 pt-3">
-        <div className="flex-[2]">
-          <img src={`music/covers/${song.title}.jpg`} alt={song.title} />
+      <div className="flex h-[37vh] flex-col rounded-md bg-[#181818] px-4 pb-6 pt-4 transition-colors duration-150 hover:cursor-pointer hover:bg-[#282828]">
+        <div className="flex-[2] shadow-md">
+          <img
+            className="rounded"
+            src={`music/covers/${song.title}.jpg`}
+            alt={song.title}
+          />
         </div>
-        <div className="flex flex-[1] flex-col items-start">
-          <p className="flex flex-[1] items-center text-xl font-bold">
+        <div className="flex flex-[1] flex-col items-start pt-2">
+          <p className="flex flex-[1] items-center text-base font-semibold">
             {song.title}
           </p>
-          <p className="font-base flex flex-[1] items-center text-base">
+          <p className="flex flex-[1] items-center text-sm font-semibold text-[#a7a7a7]">
             {song.artist}
           </p>
         </div>

@@ -17,8 +17,8 @@ export default function Home() {
 
   return (
     <>
-      <div className="flex h-full flex-[3] flex-col p-3">
-        <div className="flex w-full flex-col gap-12 p-3">
+      <div className="flex h-full flex-[3] flex-col">
+        <div className="flex w-full flex-col gap-12 bg-gradient-to-t from-[#121212] to-[#222] px-6 pb-3 pt-6">
           <p className="text-xl font-semibold">Add music to your library</p>
           <div className="flex w-full items-start justify-between">
             <span className="flex flex-[3] items-center text-base">
@@ -29,7 +29,7 @@ export default function Home() {
             </button>
           </div>
         </div>
-        <div className="grid h-full w-full grid-cols-5 gap-4 overflow-auto p-3 transition-all duration-300">
+        <div className="grid h-full w-full grid-cols-5 gap-4 overflow-auto bg-[#121212] px-6 pb-6 pt-3 transition-all duration-300">
           {songs.map((song: SongType, index: number) => (
             <Song key={index} song={song} />
           ))}
