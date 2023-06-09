@@ -1,18 +1,25 @@
 import { ContentType, Playlist, Song } from './GlobalTypes';
 import { Node } from '../utils/LinkedList';
 import React from 'react';
+import { Stack } from '~shared/utils/stack';
 
 export type ContetnProps = {
+  toggleQueue: boolean;
+  recentPlaylist: React.MutableRefObject<Playlist>;
+  recentlyPlayed: React.MutableRefObject<Stack<Song>>;
+  volume: number | undefined;
   content: ContentType;
   songs: Map<string, Song>;
   currentPlaylist: Playlist;
   showSongs: (map: Map<string, Song>) => JSX.Element[];
-  setVolume: React.Dispatch<React.SetStateAction<number>>;
+  setVolume: React.Dispatch<React.SetStateAction<number | undefined>>;
   node: React.MutableRefObject<Node<Song> | null>;
   setCurrentSong: React.Dispatch<React.SetStateAction<Song | undefined>>;
   currentSong: Song | undefined;
 };
 export type NavbarProps = {
+  node: React.MutableRefObject<Node<Song> | null>;
+  recentPlaylist: React.MutableRefObject<Playlist>;
   currentPlaylist: Playlist;
   songs: Map<string, Song>;
   activePlaylist: string;
@@ -24,6 +31,8 @@ export type NavbarProps = {
   setPlaylists: React.Dispatch<React.SetStateAction<Playlist[]>>;
 };
 export type PlaylistProps = {
+  node: React.MutableRefObject<Node<Song> | null>;
+  recentPlaylist: React.MutableRefObject<Playlist>;
   allPlaylists: Playlist[];
   setAllPlaylists: React.Dispatch<React.SetStateAction<Playlist[]>>;
   setCurrentPlaylist: React.Dispatch<React.SetStateAction<Playlist>>;
@@ -33,12 +42,15 @@ export type PlaylistProps = {
   currentPlaylist: Playlist;
 };
 export type SongProps = {
+  recentPlaylist: React.MutableRefObject<Playlist>;
+  recentlyPlayed: React.MutableRefObject<Stack<Song>>;
+  volume: number | undefined;
   song: Song;
   node: React.MutableRefObject<Node<Song> | null>;
   setCurrentSong: React.Dispatch<React.SetStateAction<Song | undefined>>;
   active: boolean;
   currentPlaylist: Playlist;
-  setVolume: React.Dispatch<React.SetStateAction<number>>;
+  setVolume: React.Dispatch<React.SetStateAction<number | undefined>>;
 };
 export type HomeProps = {
   currentPlaylist: Playlist;
@@ -46,8 +58,12 @@ export type HomeProps = {
   songs: Map<string, Song>;
 };
 export type MusicBarProps = {
-  volume: number;
-  setVolume: React.Dispatch<React.SetStateAction<number>>;
+  toggleQueue: boolean;
+  setToggleQueue: React.Dispatch<React.SetStateAction<boolean>>;
+  recentlyPlayed: React.MutableRefObject<Stack<Song>>;
+  recentPlaylist: React.MutableRefObject<Playlist>;
+  volume: number | undefined;
+  setVolume: React.Dispatch<React.SetStateAction<number | undefined>>;
   node: React.MutableRefObject<Node<Song> | null>;
   currentPlaylist: Playlist;
   currentSong: Song | undefined;

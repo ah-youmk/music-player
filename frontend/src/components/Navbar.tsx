@@ -24,6 +24,8 @@ export default function Navbar({
   setPlaylists,
   songs,
   currentPlaylist,
+  recentPlaylist,
+  node,
 }: NavbarProps) {
   const [navContent, setNavContent] = useState<NavType>('library');
 
@@ -137,9 +139,22 @@ export default function Navbar({
             )}
             {navContent === 'library' && (
               <ul className="flex w-full flex-col items-center px-3">
+                <NavbarPlaylist
+                  node={node}
+                  currentPlaylist={currentPlaylist}
+                  recentPlaylist={recentPlaylist}
+                  allPlaylists={allPlaylists}
+                  setAllPlaylists={setPlaylists}
+                  setCurrentPlaylist={setCurrentPlaylist}
+                  playlist={recentPlaylist.current}
+                  setActivePlaylist={setActivePlaylist}
+                  active={recentPlaylist.current.name === activePlaylist}
+                />
                 {allPlaylists.map((playlist, index) => (
                   <NavbarPlaylist
+                    node={node}
                     currentPlaylist={currentPlaylist}
+                    recentPlaylist={recentPlaylist}
                     allPlaylists={allPlaylists}
                     setAllPlaylists={setPlaylists}
                     setCurrentPlaylist={setCurrentPlaylist}

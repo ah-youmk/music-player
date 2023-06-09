@@ -9,6 +9,7 @@ export default function NavbarPlaylist({
   active,
   setCurrentPlaylist,
   currentPlaylist,
+  node,
 }: PlaylistProps) {
   return (
     <>
@@ -17,6 +18,7 @@ export default function NavbarPlaylist({
           if (currentPlaylist.name === playlist.name) return;
           setActivePlaylist(playlist.name);
           setCurrentPlaylist(playlist);
+          node.current = playlist.songs.getHead;
         }}
         className={`hover ${
           active ? 'bg-[#393939]' : ''
@@ -25,11 +27,13 @@ export default function NavbarPlaylist({
         }`}
       >
         <div className="flex h-full flex-[1] items-center justify-start">
-          <img
-            src={`music/covers/${playlist.songs.getHead?.data.title}.jpg`}
-            alt={playlist.name}
-            className="h-full rounded-lg object-contain"
-          />
+          {playlist.songs.getHead !== null && (
+            <img
+              src={`music/covers/${playlist.songs.getHead?.data.title}.jpg`}
+              alt={playlist.name}
+              className="h-full rounded-lg object-contain"
+            />
+          )}
         </div>
         <div className="flex h-[80%] flex-[3]">
           <div className="flex h-full flex-col justify-between">
@@ -41,7 +45,11 @@ export default function NavbarPlaylist({
         </div>
         <div
           onClick={() => {
-            if (currentPlaylist.name === 'Home') return;
+            if (
+              currentPlaylist.name === 'Home' ||
+              currentPlaylist.name === 'Recently Played'
+            )
+              return;
             const index = allPlaylists.indexOf(playlist);
             const newPlaylist = allPlaylists.filter(
               (value) => value !== playlist
@@ -52,7 +60,9 @@ export default function NavbarPlaylist({
           }}
           className="text-xl text-[#a7a7a7] hover:text-white"
         >
-          {playlist.name !== 'Home' && <CloseIcon fontSize="inherit" />}
+          {playlist.name !== 'Home' && playlist.name !== 'Recently Played' && (
+            <CloseIcon fontSize="inherit" />
+          )}
         </div>
       </li>
     </>

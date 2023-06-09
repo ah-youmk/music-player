@@ -7,16 +7,23 @@ export default function Song({
   node,
   currentPlaylist,
   setVolume,
+  volume,
+  recentlyPlayed,
+  recentPlaylist,
 }: SongProps) {
   return (
     <>
       <div
         onClick={() => {
+          if (!recentPlaylist.current.songs.traverse().includes(song)) {
+            recentlyPlayed.current.push(song);
+            recentPlaylist.current.songs.insertAtEnd(song);
+          }
           setCurrentSong(song);
           node.current = currentPlaylist.songs.search(
             (data) => data.title === song.title
           );
-          setVolume(100);
+          if (volume === undefined) setVolume(100);
         }}
         className={`flex h-[37vh] flex-col rounded-md ${
           active ? 'bg-[#282828]' : 'bg-[#181818]'

@@ -7,6 +7,7 @@ import SkipNextIcon from '@mui/icons-material/SkipNext';
 import SkipPreviousIcon from '@mui/icons-material/SkipPrevious';
 import VolumeUpIcon from '@mui/icons-material/VolumeUp';
 import VolumeOffIcon from '@mui/icons-material/VolumeOff';
+import QueueMusicIcon from '@mui/icons-material/QueueMusic';
 
 function MusicBar({
   currentSong,
@@ -15,6 +16,10 @@ function MusicBar({
   volume,
   setVolume,
   setCurrentSong,
+  recentlyPlayed,
+  recentPlaylist,
+  setToggleQueue,
+  toggleQueue,
 }: MusicBarProps) {
   const audioRef = useRef<HTMLAudioElement>(null);
   const [progress, setProgress] = useState<number>(0);
@@ -79,6 +84,15 @@ function MusicBar({
               <audio
                 ref={audioRef}
                 onEnded={() => {
+                  if (
+                    currentSong &&
+                    !recentPlaylist.current.songs
+                      .traverse()
+                      .includes(currentSong)
+                  ) {
+                    recentlyPlayed.current.push(currentSong);
+                    recentPlaylist.current.songs.insertAtEnd(currentSong);
+                  }
                   if (node.current !== null && node.current.next !== null) {
                     setCurrentSong(node.current.next.data);
                     node.current = node.current.next;
@@ -122,6 +136,15 @@ function MusicBar({
                   className="flex h-full w-6 items-center text-[1.75rem] text-[hsla(0,0%,100%,.7)] hover:cursor-default hover:text-whiteA-whiteA12"
                   onClick={(e: MouseEvent): void => {
                     e.preventDefault();
+                    if (
+                      currentSong &&
+                      !recentPlaylist.current.songs
+                        .traverse()
+                        .includes(currentSong)
+                    ) {
+                      recentlyPlayed.current.push(currentSong);
+                      recentPlaylist.current.songs.insertAtEnd(currentSong);
+                    }
                     if (node.current !== null && node.current.next !== null) {
                       setCurrentSong(node.current.next.data);
                       node.current = node.current.next;
@@ -167,11 +190,21 @@ function MusicBar({
         </div>
         <div className="flex flex-[1] justify-end gap-3">
           <div
+            onClick={() => setToggleQueue(!toggleQueue)}
+            className={`${
+              toggleQueue
+                ? 'text-purple-400 hover:text-purple-500'
+                : 'text-[#a7a7a7] hover:text-white'
+            } flex h-full items-center hover:cursor-pointer`}
+          >
+            <QueueMusicIcon />
+          </div>
+          <div
             className="flex h-full items-center text-[#a7a7a7] hover:text-white"
             onClick={() => {
               setToggleMute(!toggleMute);
               audioRef.current?.volume === 0
-                ? (audioRef.current!.volume = volume / 100)
+                ? (audioRef.current!.volume = volume ?? 0 / 100)
                 : (audioRef.current!.volume = 0);
             }}
           >
@@ -180,7 +213,7 @@ function MusicBar({
           <Slider.Root
             className="group relative mr-8 flex h-[20px] w-[35%] touch-none select-none items-center"
             defaultValue={[0]}
-            value={[!toggleMute ? volume : 0]}
+            value={[!toggleMute ? volume ?? 0 : 0]}
             max={100}
             step={1}
             onValueChange={(value: number[]): void => {

@@ -6,6 +6,7 @@ import MusicBar from './components/MusicBar';
 import { LinkedList } from '../../shared/utils/LinkedList.ts';
 import SongComponent from './components/Song.tsx';
 import { Node } from '../../shared/utils/LinkedList';
+import { Stack } from '../../shared/utils/stack.ts';
 
 type FetchedSongs = {
   [key: string]: Song;
@@ -20,9 +21,15 @@ function App() {
   });
   const [songs, setSongs] = useState<Map<string, Song>>(new Map());
   const node = useRef<Node<Song> | null>(null);
-  const [volume, setVolume] = useState<number>(0);
+  const [volume, setVolume] = useState<number | undefined>(0);
   const [allPlaylists, setAllPlaylists] = useState<Playlist[]>([]);
   const [activePlaylist, setActivePlaylist] = useState<string>('');
+  const recentlyPlayed = useRef<Stack<Song>>(new Stack());
+  const [toggleQueue, setToggleQueue] = useState<boolean>(false);
+  const recentPlaylist = useRef<Playlist>({
+    name: 'Recently Played',
+    songs: new LinkedList<Song>(),
+  });
 
   const getSongs = () => {
     fetch('http://localhost:5000/songs')
@@ -48,6 +55,9 @@ function App() {
     for (const [key, value] of map) {
       elements.push(
         <SongComponent
+          recentPlaylist={recentPlaylist}
+          recentlyPlayed={recentlyPlayed}
+          volume={volume}
           setVolume={setVolume}
           node={node}
           key={key}
@@ -70,6 +80,8 @@ function App() {
       <div className="flex h-screen w-full flex-col">
         <div className="flex h-[88vh] w-full">
           <Navbar
+            node={node}
+            recentPlaylist={recentPlaylist}
             currentPlaylist={currentPlaylist}
             setPlaylists={setAllPlaylists}
             songs={songs}
@@ -81,6 +93,10 @@ function App() {
             setCurrentPlaylist={setCurrentPlaylist}
           />
           <Content
+            toggleQueue={toggleQueue}
+            recentPlaylist={recentPlaylist}
+            recentlyPlayed={recentlyPlayed}
+            volume={volume}
             setCurrentSong={setCurrentSong}
             currentSong={currentSong}
             node={node}
@@ -92,6 +108,10 @@ function App() {
           />
         </div>
         <MusicBar
+          toggleQueue={toggleQueue}
+          setToggleQueue={setToggleQueue}
+          recentPlaylist={recentPlaylist}
+          recentlyPlayed={recentlyPlayed}
           volume={volume}
           setVolume={setVolume}
           node={node}

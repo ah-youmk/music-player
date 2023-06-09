@@ -11,6 +11,10 @@ export default function Content({
   node,
   setCurrentSong,
   currentSong,
+  recentlyPlayed,
+  volume,
+  recentPlaylist,
+  toggleQueue
 }: ContetnProps) {
   return (
     <>
@@ -32,13 +36,36 @@ export default function Content({
               <div className="flex-[1] px-6 pb-5 pt-3 text-4xl font-semibold">
                 <h1>{currentPlaylist.name}</h1>
               </div>
+              {currentPlaylist.songs.getHead === null && (
+                <p>There is no song in here yet...</p>
+              )}
               <div className="grid w-full flex-grow grid-cols-5 gap-4 px-6 transition-all duration-300">
                 {currentPlaylist.name === 'Home'
                   ? showSongs(songs)
+                  : currentPlaylist.name === 'Recently Played'
+                  ? recentPlaylist.current.songs
+                      .traverse()
+                      .map((song, index) => (
+                        <Song
+                          recentPlaylist={recentPlaylist}
+                          recentlyPlayed={recentlyPlayed}
+                          volume={volume}
+                          setVolume={setVolume}
+                          node={node}
+                          key={index}
+                          song={song}
+                          setCurrentSong={setCurrentSong}
+                          active={currentSong?.title === song.title}
+                          currentPlaylist={currentPlaylist}
+                        />
+                      ))
                   : currentPlaylist.songs
                       .traverse()
                       .map((song, index) => (
                         <Song
+                          recentPlaylist={recentPlaylist}
+                          recentlyPlayed={recentlyPlayed}
+                          volume={volume}
                           setVolume={setVolume}
                           node={node}
                           key={index}
