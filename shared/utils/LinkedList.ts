@@ -15,6 +15,10 @@ interface ILinkedList<T> {
 export class LinkedList<T> implements ILinkedList<T> {
   private head: Node<T> | null = null;
 
+  get getHead() {
+    return this.head;
+  }
+
   public insertAtEnd(data: T): Node<T> {
     const node = new Node(data);
     if (!this.head) {

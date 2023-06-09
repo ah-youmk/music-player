@@ -12,13 +12,12 @@ function MusicBar({
   currentSong,
   currentPlaylist,
   node,
-  playlists,
-  setPlaylists,
+  volume,
+  setVolume,
   setCurrentSong,
 }: MusicBarProps) {
   const audioRef = useRef<HTMLAudioElement>(null);
   const [progress, setProgress] = useState<number>(0);
-  const [volume, setVolume] = useState<number>(0);
   const [currentTime, setCurrentTime] = useState<number>(0);
   const [toggleMute, setToggleMute] = useState<boolean>(false);
   const duration = currentSong?.duration ?? 0;
@@ -34,6 +33,12 @@ function MusicBar({
   useEffect(() => {
     audioRef.current?.play();
   }, [currentSong]);
+
+  useEffect(() => {
+    if (currentPlaylist.songs.getHead)
+      setCurrentSong(currentPlaylist.songs.getHead?.data);
+    setVolume(100);
+  }, [currentPlaylist]);
 
   return (
     <>

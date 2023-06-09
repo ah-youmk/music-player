@@ -4,7 +4,7 @@
   "description": "",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "concurrently \"vite\" \"nodemon --watch './**/*.ts' --exec ts-node-esm server/server.ts\""
+    "dev": "concurrently \"vite\" \"nodemon --watch './**/*.ts' --exec ts-node-esm src/server/server.ts\""
   },
   "author": "ah-youmk",
   "license": "ISC",

@@ -6,6 +6,7 @@ export default function Song({
   active,
   node,
   currentPlaylist,
+  setVolume,
 }: SongProps) {
   return (
     <>
@@ -15,6 +16,7 @@ export default function Song({
           node.current = currentPlaylist.songs.search(
             (data) => data.title === song.title
           );
+          setVolume(100);
         }}
         className={`flex h-[37vh] flex-col rounded-md ${
           active ? 'bg-[#282828]' : 'bg-[#181818]'

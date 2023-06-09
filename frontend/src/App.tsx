@@ -20,7 +20,9 @@ function App() {
   });
   const [songs, setSongs] = useState<Map<string, Song>>(new Map());
   const node = useRef<Node<Song> | null>(null);
-  const [playlists, setPlaylists] = useState<Playlist[]>([]);
+  const [volume, setVolume] = useState<number>(0);
+  const [allPlaylists, setAllPlaylists] = useState<Playlist[]>([]);
+  const [activePlaylist, setActivePlaylist] = useState<string>('');
 
   const getSongs = () => {
     fetch('http://localhost:5000/songs')
@@ -31,20 +33,13 @@ function App() {
           name: 'Home',
           songs: new LinkedList<Song>(),
         };
-        const arr = Object.entries(result);
-        for (let i = 0; i < arr.length; i++) {
-          if (i === 0) {
-            node.current = new Node(arr[i][1]);
-            node.current.next = new Node(arr[i + 1][1]);
-            node.current = node.current.next;
-          } else if (node.current !== null && i < arr.length - 1) {
-            node.current.next = new Node(arr[i + 1][1]);
-            node.current.next.prev = node.current;
-            node.current = node.current.next;
-          }
-          playlist.songs.insertAtEnd(arr[i][1]);
+        for (const property in result) {
+          playlist.songs.insertAtEnd(result[property]);
         }
+        node.current = playlist.songs.getHead;
+        setAllPlaylists([...allPlaylists, playlist]);
         setCurrentPlaylist(playlist);
+        setActivePlaylist('Home');
       });
   };
 
@@ -53,6 +48,7 @@ function App() {
     for (const [key, value] of map) {
       elements.push(
         <SongComponent
+          setVolume={setVolume}
           node={node}
           key={key}
           song={value}
@@ -75,11 +71,20 @@ function App() {
         <div className="flex h-[88vh] w-full">
           <Navbar
             currentPlaylist={currentPlaylist}
+            setPlaylists={setAllPlaylists}
+            songs={songs}
+            activePlaylist={activePlaylist}
+            setActivePlaylist={setActivePlaylist}
+            allPlaylists={allPlaylists}
             active={content}
             setActive={setContent}
             setCurrentPlaylist={setCurrentPlaylist}
           />
           <Content
+            setCurrentSong={setCurrentSong}
+            currentSong={currentSong}
+            node={node}
+            setVolume={setVolume}
             content={content}
             currentPlaylist={currentPlaylist}
             showSongs={showSongs}
@@ -87,8 +92,8 @@ function App() {
           />
         </div>
         <MusicBar
-          playlists={playlists}
-          setPlaylists={setPlaylists}
+          volume={volume}
+          setVolume={setVolume}
           node={node}
           currentSong={currentSong}
           currentPlaylist={currentPlaylist}

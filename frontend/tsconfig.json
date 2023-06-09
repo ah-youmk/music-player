@@ -7,8 +7,10 @@
     "skipLibCheck": true,
     "outDir": "dist",
     "esModuleInterop": true,
+    "baseUrl": ".",
     "paths": {
-      "~shared/*": ["../shared/*"]
+      "~shared/*": ["../shared/*"],
+      "@/*": ["./*"]
     },
     "rootDirs": ["./src", "../shared"],
 
@@ -26,6 +28,12 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src", "../backend/src/api/songs.ts", "../shared/types"],
+  "include": [
+    "src",
+    "../backend/src/api/songs.ts",
+    "../shared/types",
+    "src/components/ui",
+    "components/ui/input.tsx"
+  ],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

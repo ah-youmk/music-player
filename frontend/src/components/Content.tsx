@@ -1,10 +1,16 @@
 import { ContetnProps } from '../types/PropsType';
+import Search from './Search';
+import Song from './Song';
 
 export default function Content({
   content,
   songs,
   showSongs,
   currentPlaylist,
+  setVolume,
+  node,
+  setCurrentSong,
+  currentSong,
 }: ContetnProps) {
   return (
     <>
@@ -19,14 +25,33 @@ export default function Content({
               Add Music
             </button>
           </div>
-          <div className="flex-[1] px-1 pb-2 text-4xl font-semibold">
-            <h1>{currentPlaylist.name}</h1>
-          </div>
         </div>
-        <div className="flex w-full flex-col overflow-auto bg-[#121212] pb-3">
-          <div className="grid w-full flex-grow grid-cols-5 gap-4 px-6 transition-all duration-300">
-            {showSongs(songs)}
-          </div>
+        <div className="flex h-full w-full flex-col overflow-auto bg-[#121212] pb-3">
+          {content === 'home' && (
+            <>
+              <div className="flex-[1] px-6 pb-5 pt-3 text-4xl font-semibold">
+                <h1>{currentPlaylist.name}</h1>
+              </div>
+              <div className="grid w-full flex-grow grid-cols-5 gap-4 px-6 transition-all duration-300">
+                {currentPlaylist.name === 'Home'
+                  ? showSongs(songs)
+                  : currentPlaylist.songs
+                      .traverse()
+                      .map((song, index) => (
+                        <Song
+                          setVolume={setVolume}
+                          node={node}
+                          key={index}
+                          song={song}
+                          setCurrentSong={setCurrentSong}
+                          active={currentSong?.title === song.title}
+                          currentPlaylist={currentPlaylist}
+                        />
+                      ))}
+              </div>
+            </>
+          )}
+          {content === 'search' && <Search />}
         </div>
       </div>
     </>
