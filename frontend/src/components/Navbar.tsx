@@ -26,6 +26,7 @@ export default function Navbar({
   currentPlaylist,
   recentPlaylist,
   node,
+  setToggleQueue,
 }: NavbarProps) {
   const [navContent, setNavContent] = useState<NavType>('library');
 
@@ -42,7 +43,10 @@ export default function Navbar({
             className={`flex w-[95%] flex-[1] gap-3 transition-all duration-300 hover:cursor-pointer ${
               active === 'home' ? 'text-white' : 'hover:text-white'
             }`}
-            onClick={() => setActive('home')}
+            onClick={() => {
+              setActive('home');
+              setToggleQueue(false);
+            }}
           >
             <div className="flex flex-[1] items-start">
               {active === 'home' ? (
@@ -63,7 +67,10 @@ export default function Navbar({
             className={`flex w-[95%] flex-[1] gap-3 transition-all duration-300 hover:cursor-pointer ${
               active === 'search' ? 'text-white' : 'hover:text-white'
             }`}
-            onClick={() => setActive('search')}
+            onClick={() => {
+              setActive('search');
+              setToggleQueue(false);
+            }}
           >
             <div className="flex flex-[1] items-start">
               {active === 'search' ? (
@@ -88,7 +95,10 @@ export default function Navbar({
                 className={`flex w-[95%] gap-3 transition-all duration-300 hover:cursor-pointer ${
                   navContent === 'library' ? 'text-white' : 'hover:text-white'
                 }`}
-                onClick={() => setNavContent('library')}
+                onClick={() => {
+                  setNavContent('library');
+                  setToggleQueue(false);
+                }}
               >
                 <div className="flex-[1]">
                   {navContent === 'library' ? (
@@ -109,7 +119,10 @@ export default function Navbar({
                 className={`flex w-[95%] gap-3 transition-all duration-300 hover:cursor-pointer ${
                   navContent === 'playlist' ? 'text-white' : 'hover:text-white'
                 }`}
-                onClick={() => setNavContent('playlist')}
+                onClick={() => {
+                  setNavContent('playlist');
+                  setToggleQueue(false);
+                }}
               >
                 <div className="flex-[1]">
                   {navContent === 'playlist' ? (
@@ -140,6 +153,8 @@ export default function Navbar({
             {navContent === 'library' && (
               <ul className="flex w-full flex-col items-center px-3">
                 <NavbarPlaylist
+                  setNavContent={setNavContent}
+                  setToggleQueue={setToggleQueue}
                   node={node}
                   currentPlaylist={currentPlaylist}
                   recentPlaylist={recentPlaylist}
@@ -152,6 +167,8 @@ export default function Navbar({
                 />
                 {allPlaylists.map((playlist, index) => (
                   <NavbarPlaylist
+                    setNavContent={setNavContent}
+                    setToggleQueue={setToggleQueue}
                     node={node}
                     currentPlaylist={currentPlaylist}
                     recentPlaylist={recentPlaylist}

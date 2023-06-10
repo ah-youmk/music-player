@@ -7,6 +7,7 @@ import { LinkedList } from '../../shared/utils/LinkedList.ts';
 import SongComponent from './components/Song.tsx';
 import { Node } from '../../shared/utils/LinkedList';
 import { Stack } from '../../shared/utils/stack.ts';
+import { QueueCollection } from '../../shared/utils/queue.ts';
 
 type FetchedSongs = {
   [key: string]: Song;
@@ -32,6 +33,7 @@ function App() {
     songs: new LinkedList<Song>(),
   });
   const prevContent = useRef<{ content: ContentType }>({ content: 'home' });
+  const queue = useRef<QueueCollection<Song>>(new QueueCollection());
 
   const getSongs = () => {
     fetch('http://localhost:5000/songs')
@@ -57,6 +59,7 @@ function App() {
     for (const [key, value] of map) {
       elements.push(
         <SongComponent
+          queue={queue}
           currentSong={currentSong}
           audioRef={audioRef}
           recentPlaylist={recentPlaylist}
@@ -93,6 +96,7 @@ function App() {
       <div className="flex h-screen w-full flex-col">
         <div className="flex h-[88vh] w-full">
           <Navbar
+            setToggleQueue={setToggleQueue}
             node={node}
             recentPlaylist={recentPlaylist}
             currentPlaylist={currentPlaylist}
@@ -106,6 +110,7 @@ function App() {
             setCurrentPlaylist={setCurrentPlaylist}
           />
           <Content
+            queue={queue}
             audioRef={audioRef}
             toggleQueue={toggleQueue}
             recentPlaylist={recentPlaylist}
@@ -122,6 +127,7 @@ function App() {
           />
         </div>
         <MusicBar
+          queue={queue}
           audioRef={audioRef}
           toggleQueue={toggleQueue}
           setToggleQueue={setToggleQueue}

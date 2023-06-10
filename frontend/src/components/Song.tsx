@@ -6,6 +6,8 @@ import {
 import { SongProps } from '~shared/types/PropsType';
 import { ContextMenuItem } from './ui/context-menu';
 import { useEffect, useState } from 'react';
+import { Song as SongType } from '~shared/types/GlobalTypes';
+import lodash from 'lodash';
 
 export default function Song({
   song,
@@ -13,8 +15,7 @@ export default function Song({
   active,
   node,
   currentPlaylist,
-  setVolume,
-  volume,
+  queue,
   recentlyPlayed,
   recentPlaylist,
   audioRef,
@@ -36,7 +37,12 @@ export default function Song({
                 audioRef.current?.play();
                 setAudioTrack((prev) => prev + 1);
               }
-              if (!recentPlaylist.current.songs.traverse().includes(song)) {
+              if (
+                !recentPlaylist.current.songs
+                  .traverse()
+                  .map((song) => song.title)
+                  .includes(song.title)
+              ) {
                 recentlyPlayed.current.push(song);
                 recentPlaylist.current.songs.insertAtEnd(song);
               }
@@ -68,7 +74,20 @@ export default function Song({
         </ContextMenuTrigger>
         <ContextMenuContent className="rounded-md bg-[#282828] shadow-[0_16px_24px_rgba(0,0,0,.3),_0_6px_8px_rgba(0,0,0,.2)]">
           <ContextMenuItem
-            onClick={() => console.log('first')}
+            onClick={() => {
+              const songs: SongType[] = [];
+              const newQueue = lodash.cloneDeep(queue.current);
+              for (let i = 0; i < queue.current.size(); i++) {
+                const dequeued = newQueue.dequeue();
+                songs.push(dequeued);
+              }
+              if (
+                songs.map((song) => song.title).includes(song.title) &&
+                songs.length !== 0
+              )
+                return;
+              queue.current.enqueue(song);
+            }}
             className="py-3 pl-2 pr-3 data-[highlighted]:bg-[#3E3E3E]"
             inset
           >

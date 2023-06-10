@@ -10,11 +10,15 @@ export default function NavbarPlaylist({
   setCurrentPlaylist,
   currentPlaylist,
   node,
+  setToggleQueue,
+  setNavContent,
 }: PlaylistProps) {
   return (
     <>
       <li
         onClick={() => {
+          setNavContent('library');
+          setToggleQueue(false);
           if (currentPlaylist.name === playlist.name) return;
           setActivePlaylist(playlist.name);
           setCurrentPlaylist(playlist);

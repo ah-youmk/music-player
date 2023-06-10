@@ -1,9 +1,14 @@
-import { ContentType, Playlist, Song } from './GlobalTypes';
+/** abso-fucking-lutely terrible idea
+ * never gonna do this again...
+ */
+import { ContentType, NavType, Playlist, Song } from './GlobalTypes';
 import { Node } from '../utils/LinkedList';
 import React from 'react';
 import { Stack } from '~shared/utils/stack';
+import { QueueCollection } from '~shared/utils/queue';
 
 export type ContetnProps = {
+  queue: React.MutableRefObject<QueueCollection<Song>>;
   audioRef: React.RefObject<HTMLAudioElement>;
   toggleQueue: boolean;
   recentPlaylist: React.MutableRefObject<Playlist>;
@@ -19,6 +24,7 @@ export type ContetnProps = {
   currentSong: Song | undefined;
 };
 export type NavbarProps = {
+  setToggleQueue: React.Dispatch<boolean>;
   node: React.MutableRefObject<Node<Song> | null>;
   recentPlaylist: React.MutableRefObject<Playlist>;
   currentPlaylist: Playlist;
@@ -32,6 +38,7 @@ export type NavbarProps = {
   setPlaylists: React.Dispatch<React.SetStateAction<Playlist[]>>;
 };
 export type PlaylistProps = {
+  setNavContent: React.Dispatch<NavType>;
   node: React.MutableRefObject<Node<Song> | null>;
   recentPlaylist: React.MutableRefObject<Playlist>;
   allPlaylists: Playlist[];
@@ -41,8 +48,10 @@ export type PlaylistProps = {
   active: boolean;
   setActivePlaylist: React.Dispatch<React.SetStateAction<string>>;
   currentPlaylist: Playlist;
+  setToggleQueue: React.Dispatch<boolean>;
 };
 export type SongProps = {
+  queue: React.MutableRefObject<QueueCollection<Song>>;
   currentSong: Song | undefined;
   audioRef: React.RefObject<HTMLAudioElement>;
   recentPlaylist: React.MutableRefObject<Playlist>;
@@ -61,6 +70,7 @@ export type HomeProps = {
   songs: Map<string, Song>;
 };
 export type MusicBarProps = {
+  queue: React.MutableRefObject<QueueCollection<Song>>;
   audioRef: React.RefObject<HTMLAudioElement>;
   toggleQueue: boolean;
   setToggleQueue: React.Dispatch<React.SetStateAction<boolean>>;

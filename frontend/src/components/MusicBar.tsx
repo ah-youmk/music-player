@@ -8,6 +8,8 @@ import SkipPreviousIcon from '@mui/icons-material/SkipPrevious';
 import VolumeUpIcon from '@mui/icons-material/VolumeUp';
 import VolumeOffIcon from '@mui/icons-material/VolumeOff';
 import QueueMusicIcon from '@mui/icons-material/QueueMusic';
+import { Song } from '~shared/types/GlobalTypes';
+import lodash from 'lodash';
 
 function MusicBar({
   currentSong,
@@ -21,6 +23,7 @@ function MusicBar({
   setToggleQueue,
   toggleQueue,
   audioRef,
+  queue,
 }: MusicBarProps) {
   const [progress, setProgress] = useState<number>(0);
   const [currentTime, setCurrentTime] = useState<number>(0);
@@ -44,6 +47,18 @@ function MusicBar({
   useEffect(() => {
     if (audioTrack > 0) audioRef.current?.play();
   }, [audioTrack]);
+
+  useEffect(() => {
+    if (toggleQueue) {
+      const songs: Song[] = [];
+      const newQueue = lodash.cloneDeep(queue);
+      const dequeued = newQueue.current.dequeue();
+      if (dequeued) songs.push(dequeued);
+      setCurrentSong(dequeued);
+    } else {
+      setCurrentSong(node.current?.data);
+    }
+  }, [toggleQueue]);
 
   return (
     <>
@@ -84,6 +99,21 @@ function MusicBar({
               <audio
                 ref={audioRef}
                 onEnded={() => {
+                  if (toggleQueue) {
+                    const song = queue.current.dequeue();
+                    setCurrentSong(queue.current.peek());
+                    setAudioTrack((prev) => prev + 1);
+                    if (
+                      !recentPlaylist.current.songs
+                        .traverse()
+                        .map((song) => song.title)
+                        .includes(song.title)
+                    ) {
+                      recentlyPlayed.current.push(song);
+                      recentPlaylist.current.songs.insertAtEnd(song);
+                    }
+                    return;
+                  }
                   if (
                     currentSong &&
                     !recentPlaylist.current.songs
@@ -107,6 +137,20 @@ function MusicBar({
                   className="flex h-full w-6 items-center text-[1.75rem] text-[hsla(0,0%,100%,.7)] hover:cursor-default hover:text-whiteA-whiteA12"
                   onClick={(e: MouseEvent): void => {
                     e.preventDefault();
+                    if (toggleQueue) return;
+                    if (
+                      node.current !== null &&
+                      node.current.prev !== null &&
+                      !recentPlaylist.current.songs
+                        .traverse()
+                        .map((song) => song.title)
+                        .includes(node.current.prev.data.title)
+                    ) {
+                      recentlyPlayed.current.push(node.current.prev.data);
+                      recentPlaylist.current.songs.insertAtEnd(
+                        node.current.prev.data
+                      );
+                    }
                     if (node.current !== null && node.current.prev !== null) {
                       setCurrentSong(node.current.prev.data);
                       node.current = node.current.prev;
@@ -141,14 +185,33 @@ function MusicBar({
                   className="flex h-full w-6 items-center text-[1.75rem] text-[hsla(0,0%,100%,.7)] hover:cursor-default hover:text-whiteA-whiteA12"
                   onClick={(e: MouseEvent): void => {
                     e.preventDefault();
+                    if (toggleQueue) {
+                      const song = queue.current.dequeue();
+                      setCurrentSong(queue.current.peek());
+                      setAudioTrack((prev) => prev + 1);
+                      if (
+                        !recentPlaylist.current.songs
+                          .traverse()
+                          .map((song) => song.title)
+                          .includes(song.title)
+                      ) {
+                        recentlyPlayed.current.push(song);
+                        recentPlaylist.current.songs.insertAtEnd(song);
+                      }
+                      return;
+                    }
                     if (
-                      currentSong &&
+                      node.current !== null &&
+                      node.current.next !== null &&
                       !recentPlaylist.current.songs
                         .traverse()
-                        .includes(currentSong)
+                        .map((song) => song.title)
+                        .includes(node.current.next.data.title)
                     ) {
-                      recentlyPlayed.current.push(currentSong);
-                      recentPlaylist.current.songs.insertAtEnd(currentSong);
+                      recentlyPlayed.current.push(node.current.next.data);
+                      recentPlaylist.current.songs.insertAtEnd(
+                        node.current.next.data
+                      );
                     }
                     if (node.current !== null && node.current.next !== null) {
                       setCurrentSong(node.current.next.data);
