@@ -13,6 +13,7 @@ type FetchedSongs = {
 };
 
 function App() {
+  const audioRef = useRef<HTMLAudioElement>(null);
   const [content, setContent] = useState<ContentType>('home');
   const [currentSong, setCurrentSong] = useState<Song | undefined>(undefined);
   const [currentPlaylist, setCurrentPlaylist] = useState<Playlist>({
@@ -21,7 +22,7 @@ function App() {
   });
   const [songs, setSongs] = useState<Map<string, Song>>(new Map());
   const node = useRef<Node<Song> | null>(null);
-  const [volume, setVolume] = useState<number | undefined>(0);
+  const [volume, setVolume] = useState<number | undefined>(100);
   const [allPlaylists, setAllPlaylists] = useState<Playlist[]>([]);
   const [activePlaylist, setActivePlaylist] = useState<string>('');
   const recentlyPlayed = useRef<Stack<Song>>(new Stack());
@@ -30,6 +31,7 @@ function App() {
     name: 'Recently Played',
     songs: new LinkedList<Song>(),
   });
+  const prevContent = useRef<{ content: ContentType }>({ content: 'home' });
 
   const getSongs = () => {
     fetch('http://localhost:5000/songs')
@@ -55,6 +57,8 @@ function App() {
     for (const [key, value] of map) {
       elements.push(
         <SongComponent
+          currentSong={currentSong}
+          audioRef={audioRef}
           recentPlaylist={recentPlaylist}
           recentlyPlayed={recentlyPlayed}
           volume={volume}
@@ -75,6 +79,15 @@ function App() {
     getSongs();
   }, []);
 
+  useEffect(() => {
+    if (toggleQueue) {
+      prevContent.current!.content = content;
+      setContent('queue');
+    } else {
+      setContent(prevContent.current?.content ?? 'home');
+    }
+  }, [toggleQueue]);
+
   return (
     <>
       <div className="flex h-screen w-full flex-col">
@@ -93,6 +106,7 @@ function App() {
             setCurrentPlaylist={setCurrentPlaylist}
           />
           <Content
+            audioRef={audioRef}
             toggleQueue={toggleQueue}
             recentPlaylist={recentPlaylist}
             recentlyPlayed={recentlyPlayed}
@@ -108,6 +122,7 @@ function App() {
           />
         </div>
         <MusicBar
+          audioRef={audioRef}
           toggleQueue={toggleQueue}
           setToggleQueue={setToggleQueue}
           recentPlaylist={recentPlaylist}

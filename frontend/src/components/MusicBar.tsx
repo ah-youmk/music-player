@@ -1,4 +1,4 @@
-import React, { MouseEvent, useEffect, useRef, useState } from 'react';
+import React, { MouseEvent, useEffect, useState } from 'react';
 import * as Slider from '@radix-ui/react-slider';
 import { MusicBarProps } from '~shared/types/PropsType';
 import PlayCircleIcon from '@mui/icons-material/PlayCircle';
@@ -20,12 +20,13 @@ function MusicBar({
   recentPlaylist,
   setToggleQueue,
   toggleQueue,
+  audioRef,
 }: MusicBarProps) {
-  const audioRef = useRef<HTMLAudioElement>(null);
   const [progress, setProgress] = useState<number>(0);
   const [currentTime, setCurrentTime] = useState<number>(0);
   const [toggleMute, setToggleMute] = useState<boolean>(false);
   const duration = currentSong?.duration ?? 0;
+  const [audioTrack, setAudioTrack] = useState<number>(0);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -36,14 +37,13 @@ function MusicBar({
   }, [audioRef.current?.currentTime]);
 
   useEffect(() => {
-    audioRef.current?.play();
-  }, [currentSong]);
-
-  useEffect(() => {
     if (currentPlaylist.songs.getHead)
       setCurrentSong(currentPlaylist.songs.getHead?.data);
-    setVolume(100);
   }, [currentPlaylist]);
+
+  useEffect(() => {
+    if (audioTrack > 0) audioRef.current?.play();
+  }, [audioTrack]);
 
   return (
     <>
@@ -110,6 +110,7 @@ function MusicBar({
                     if (node.current !== null && node.current.prev !== null) {
                       setCurrentSong(node.current.prev.data);
                       node.current = node.current.prev;
+                      setAudioTrack((prev) => prev + 1);
                     }
                   }}
                 >
@@ -119,6 +120,10 @@ function MusicBar({
                   className="flex h-[2.1875rem] w-[2.1875rem] text-white hover:cursor-default hover:text-whiteA-whiteA12"
                   onClick={(e: MouseEvent): void => {
                     e.preventDefault();
+                    if (recentlyPlayed.current.size() === 0 && currentSong) {
+                      recentlyPlayed.current.push(currentSong);
+                      recentPlaylist.current.songs.insertAtEnd(currentSong);
+                    }
                     if (audioRef.current?.paused) {
                       audioRef.current?.play();
                     } else {
@@ -148,6 +153,7 @@ function MusicBar({
                     if (node.current !== null && node.current.next !== null) {
                       setCurrentSong(node.current.next.data);
                       node.current = node.current.next;
+                      setAudioTrack((prev) => prev + 1);
                     }
                   }}
                 >

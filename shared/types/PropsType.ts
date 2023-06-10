@@ -4,6 +4,7 @@ import React from 'react';
 import { Stack } from '~shared/utils/stack';
 
 export type ContetnProps = {
+  audioRef: React.RefObject<HTMLAudioElement>;
   toggleQueue: boolean;
   recentPlaylist: React.MutableRefObject<Playlist>;
   recentlyPlayed: React.MutableRefObject<Stack<Song>>;
@@ -42,6 +43,8 @@ export type PlaylistProps = {
   currentPlaylist: Playlist;
 };
 export type SongProps = {
+  currentSong: Song | undefined;
+  audioRef: React.RefObject<HTMLAudioElement>;
   recentPlaylist: React.MutableRefObject<Playlist>;
   recentlyPlayed: React.MutableRefObject<Stack<Song>>;
   volume: number | undefined;
@@ -58,6 +61,7 @@ export type HomeProps = {
   songs: Map<string, Song>;
 };
 export type MusicBarProps = {
+  audioRef: React.RefObject<HTMLAudioElement>;
   toggleQueue: boolean;
   setToggleQueue: React.Dispatch<React.SetStateAction<boolean>>;
   recentlyPlayed: React.MutableRefObject<Stack<Song>>;

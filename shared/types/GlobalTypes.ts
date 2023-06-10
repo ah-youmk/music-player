@@ -8,7 +8,7 @@ export type Song = {
   album: string;
   duration: number;
 };
-export type ContentType = 'home' | 'search' | Playlist;
+export type ContentType = 'home' | 'search' | 'queue' | Playlist;
 export type NavType = 'library' | 'playlist';
 export type Playlist = {
   name: string;

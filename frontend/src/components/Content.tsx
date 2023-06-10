@@ -1,4 +1,5 @@
 import { ContetnProps } from '../types/PropsType';
+import Queue from './Queue';
 import Search from './Search';
 import Song from './Song';
 
@@ -14,7 +15,8 @@ export default function Content({
   recentlyPlayed,
   volume,
   recentPlaylist,
-  toggleQueue
+  toggleQueue,
+  audioRef,
 }: ContetnProps) {
   return (
     <>
@@ -47,6 +49,8 @@ export default function Content({
                       .traverse()
                       .map((song, index) => (
                         <Song
+                          currentSong={currentSong}
+                          audioRef={audioRef}
                           recentPlaylist={recentPlaylist}
                           recentlyPlayed={recentlyPlayed}
                           volume={volume}
@@ -63,6 +67,8 @@ export default function Content({
                       .traverse()
                       .map((song, index) => (
                         <Song
+                          currentSong={currentSong}
+                          audioRef={audioRef}
                           recentPlaylist={recentPlaylist}
                           recentlyPlayed={recentlyPlayed}
                           volume={volume}
@@ -78,6 +84,7 @@ export default function Content({
               </div>
             </>
           )}
+          {content === 'queue' && <Queue />}
           {content === 'search' && <Search />}
         </div>
       </div>
