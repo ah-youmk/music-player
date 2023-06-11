@@ -6,7 +6,6 @@ import { Stack } from '~shared/utils/stack';
 
 type QueuedSongProps = {
   audioRef: React.RefObject<HTMLAudioElement>;
-  currentSong: Song | undefined;
   setCurrentSong: React.Dispatch<Song>;
   number: number;
   active: boolean;
@@ -28,7 +27,6 @@ function QueuedSong({
   song,
   active,
   number,
-  currentSong,
   setCurrentSong,
   recentlyPlayed,
   recentPlaylist,
@@ -129,7 +127,6 @@ export default function Queue({
               recentlyPlayed={recentlyPlayed}
               queue={queue}
               audioRef={audioRef}
-              currentSong={currentSong}
               setCurrentSong={setCurrentSong}
               number={index + 1}
               active={currentSong?.title === song.title}

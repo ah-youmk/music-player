@@ -2,6 +2,7 @@ import { LinkedList } from '../utils/LinkedList';
 import { Stack } from '../utils/stack';
 
 export type Song = {
+  genre: string | undefined;
   fileName: string;
   title: string;
   artist: string;

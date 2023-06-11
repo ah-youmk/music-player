@@ -272,9 +272,7 @@ function MusicBar({
             className="flex h-full items-center text-[#a7a7a7] hover:text-white"
             onClick={() => {
               setToggleMute(!toggleMute);
-              audioRef.current?.volume === 0
-                ? (audioRef.current!.volume = volume ?? 0 / 100)
-                : (audioRef.current!.volume = 0);
+              audioRef.current!.volume = toggleMute ? (volume ?? 0) / 100 : 0;
             }}
           >
             {!toggleMute ? <VolumeUpIcon /> : <VolumeOffIcon />}

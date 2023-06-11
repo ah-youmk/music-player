@@ -21,6 +21,7 @@ const parseFiles = async (files: string[]): Promise<Map<string, Song>> => {
         }\\public\\music\\covers\\${metadata.common.title}.jpg`
       );
       songs.set(metadata.common.title ?? 'TITLE', {
+        genre: metadata.common.genre ? metadata.common.genre[0] : undefined,
         fileName: path.parse(file).base,
         artist: metadata.common.artist ?? 'ARTIST',
         album: metadata.common.album ?? 'ALBUM',

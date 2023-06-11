@@ -96,7 +96,16 @@ export default function Content({
               queue={queue}
             />
           )}
-          {content === 'search' && <Search />}
+          {content === 'search' && (
+            <Search
+              currentSong={currentSong}
+              currentPlaylist={currentPlaylist}
+              allSongs={songs}
+              setCurrentSong={setCurrentSong}
+              audioRef={audioRef}
+              node={node}
+            />
+          )}
         </div>
       </div>
     </>
