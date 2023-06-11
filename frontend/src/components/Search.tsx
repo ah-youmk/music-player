@@ -74,7 +74,6 @@ export default function Search({
       bst.insert(itemsToBeFiltered[i].charAt(characterCounter), i);
     characterCounter++;
     let result = bst.search(input.charAt(0));
-    console.log(bst);
     input = input.substring(1);
     while (input && result) {
       const bst = new BinarySearchTree<string>(comparator);
