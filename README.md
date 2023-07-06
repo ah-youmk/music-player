@@ -17,5 +17,5 @@ export default defineConfig({
 ```
 ## Features
 You can create playlist, add songs to a queue, search the library and track your recenty played songs.
-Sout out to [Amirali Nrp](https://github.com/Amirali-Nrp) for pointing at some bugs.
+Shout out to [Amirali Nrp](https://github.com/Amirali-Nrp) for pointing at some bugs.
 Feel free to inform me if you found any bugs.
